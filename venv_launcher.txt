@@ -1,0 +1,10 @@
+
+py -3.7 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+
+pip install pandas numpy scikit-learn tensorflow
+
+pip install ipykernel
+
+iniciar el servidor de tensorflow en tensorboard
+tensorboard --logdir=logs/

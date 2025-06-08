@@ -1,0 +1,56 @@
+[
+  {
+    "repo_name": "100-words-design-patterns-java",
+    "file_path": "java_repos\\100-words-design-patterns-java\\src\\main\\java\\com\\hundredwordsgof\\singleton\\Singleton.java",
+    "class_name": "implements",
+    "code": "package com.hundredwordsgof.singleton;\n\n/**\n * Singleton class implements singleton pattern. Only one object can be\n * instantiated.\n * \n */\npublic class Singleton {\n\n  /**\n   * Holds reference to single instance.\n   */\n  private static Singleton INSTANCE;\n\n  /**\n   * Overrides public Constructor.\n   */\n  private Singleton() {\n  }\n\n  /**\n   * Creates the instance if it does not yet exist(lazy instantiation).\n   * \n   * @return a reference to the single instance.\n   */\n  public static Singleton getInstance() {\n    if (INSTANCE == null) {\n      INSTANCE = new Singleton();\n    }\n    return INSTANCE;\n  }\n}\n"
+  },
+  {
+    "repo_name": "MasterSeleniumFramework_BDD",
+    "file_path": "java_repos\\MasterSeleniumFramework_BDD\\src\\test\\java\\awesomecucumber\\utils\\ConfigLoader.java",
+    "class_name": "ConfigLoader",
+    "code": "/**\n * @author Rajat Verma\n * https://www.linkedin.com/in/rajat-v-3b0685128/\n * https://github.com/rajatt95\n * https://rajatt95.github.io/\n *\n * Course: Cucumber BDD Masterclass with Selenium 4 & Java + Framework (https://www.udemy.com/course/cucumber-bdd-masterclass/)\n * Tutor: Omprakash Chavan (https://www.udemy.com/user/omprakash-chavan/)\n */\n\n/***************************************************/\n\npackage awesomecucumber.utils;\n\nimport static awesomecucumber.constants.FrameworkConstants.DIRECTORY_ENV_CONFIG;\nimport static awesomecucumber.constants.FrameworkConstants.ENV_CONFIG_INT;\nimport static awesomecucumber.constants.FrameworkConstants.ENV_CONFIG_PROD;\nimport static awesomecucumber.constants.FrameworkConstants.ENV_CONFIG_QA;\nimport static awesomecucumber.constants.FrameworkConstants.ENV_CONFIG_STG;\nimport static awesomecucumber.constants.FrameworkConstants.PARAMETER_ENV;\n\nimport java.util.Properties;\n\nimport awesomecucumber.enums.EnvType;\n\n/**\n * Singleton Design Pattern is implemented here\n */\npublic class ConfigLoader {\n\n\tprivate static final String BASE_URL = \"baseUrl\";\n\tprivate static final String SEND_EMAIL_TO_USERS = \"send_email_to_users\";\n\n\n\t// private final Properties properties;\n\tprivate Properties properties;\n\n\tprivate static ConfigLoader configLoader;\n\n\tprivate ConfigLoader() {\n\n\t\t/**\n\t\t * Setting the Environment Parameter here.\n\t\t * \n\t\t * By default, Stage will be taken\n\t\t */\n\t\t// PARAMETER_ENV = \"env\";\n\t\tString env = System.getProperty(PARAMETER_ENV, String.valueOf(EnvType.STG));\n\n\t\tswitch (EnvType.valueOf(env)) {\n\n\t\tcase QA: {\n\t\t\tproperties = PropertyUtils.propertyLoader(DIRECTORY_ENV_CONFIG + ENV_CONFIG_QA);\n\t\t\tbreak;\n\t\t}\n\t\tcase INT: {\n\t\t\tproperties = PropertyUtils.propertyLoader(DIRECTORY_ENV_CONFIG + ENV_CONFIG_INT);\n\t\t\tbreak;\n\t\t}\n\t\tcase STG: {\n\t\t\tproperties = PropertyUtils.propertyLoader(DIRECTORY_ENV_CONFIG + ENV_CONFIG_STG);\n\t\t\tbreak;\n\t\t}\n\t\tcase PROD: {\n\t\t\tproperties = PropertyUtils.propertyLoader(DIRECTORY_ENV_CONFIG + ENV_CONFIG_PROD);\n\t\t\tbreak;\n\t\t}\n\t\tdefault:\n\t\t\tthrow new IllegalStateException(\"INVALID ENV: \" + env);\n\t\t}\n\t}\n\n\tpublic static ConfigLoader getInstance() {\n\t\tif (configLoader == null) {\n\t\t\tconfigLoader = new ConfigLoader();\n\t\t}\n\t\treturn configLoader;\n\t}\n\n\tpublic String getBaseUrl() {\n\t\treturn getPropertyValue(BASE_URL);\n\t}\n\n\tpublic String getSendEmailToUsers() {\n\t\treturn getPropertyValue(SEND_EMAIL_TO_USERS);\n\t}\n\t\n\tprivate String getPropertyValue(String propertyKey) {\n\t\tString prop = properties.getProperty(propertyKey);\n\t\tif (prop != null) {\n\t\t\treturn prop.trim();\n\t\t} else {\n\t\t\tthrow new RuntimeException(\"Property \" + propertyKey + \" is not specified in the config.properties file\");\n\t\t}\n\t}\n\t\n\t\n}\n"
+  },
+  {
+    "repo_name": "JavaCode",
+    "file_path": "java_repos\\JavaCode\\Java Code\\Singleton.java",
+    "class_name": "Singleton",
+    "code": "import java.util.Arrays;\nimport java.util.Collections;\nimport java.util.LinkedList;\n\npublic class Singleton {\n\t\n\tprivate static Singleton firstInstance = null;\n\t\n\tString[] scrabbleLetters = {\"a\", \"a\", \"a\", \"a\", \"a\", \"a\", \"a\", \"a\", \"a\",\n\t\t\t\"b\", \"b\", \"c\", \"c\", \"d\", \"d\", \"d\", \"d\", \"e\", \"e\", \"e\", \"e\", \"e\", \n\t\t\t\"e\", \"e\", \"e\", \"e\", \"e\", \"e\", \"e\", \"f\", \"f\", \"g\", \"g\", \"g\", \"h\", \n\t\t\t\"h\", \"i\", \"i\", \"i\", \"i\", \"i\", \"i\", \"i\", \"i\", \"i\", \"j\", \"k\", \"l\", \n\t\t\t\"l\", \"l\", \"l\", \"m\", \"m\", \"n\", \"n\", \"n\", \"n\", \"n\", \"n\", \"o\", \"o\", \n\t\t\t\"o\", \"o\", \"o\", \"o\", \"o\", \"o\", \"p\", \"p\", \"q\", \"r\", \"r\", \"r\", \"r\", \n\t\t\t\"r\", \"r\", \"s\", \"s\", \"s\", \"s\", \"t\", \"t\", \"t\", \"t\", \"t\", \"t\", \"u\", \n\t\t\t\"u\", \"u\", \"u\", \"v\", \"v\", \"w\", \"w\", \"x\", \"y\", \"y\", \"z\",};  \n\t\n\tprivate LinkedList<String> letterList = new LinkedList<String> (Arrays.asList(scrabbleLetters));\n   \n    // Used to slow down 1st thread\n\tstatic boolean firstThread = true;\n\t\n\t// Created to keep users from instantiation\n\t// Only Singleton will be able to instantiate this class\n   \n\tprivate Singleton() { }\n\t\n\t// We could make getInstance a synchronized method to force \n\t// every thread to wait its turn. That way only one thread\n\t// can access a method at a time. This can really slow everything\n\t// down though\n\t// public static synchronized Singleton getInstance()\n\t\n\tpublic static Singleton getInstance() {\n\t\tif(firstInstance == null) {\n\t\t\t\n\t\t\t// This is here to test what happens if threads try\n\t\t\t// to create instances of this class\n\t\t\t\n\t\t\tif(firstThread){\n\t\t\t\n\t\t\t\tfirstThread = false;\n\t\t\t\t\n\t\t\t\ttry {\n\t\t\t\t\tThread.currentThread();\n\t\t\t\t\tThread.sleep(1000);\n\t\t\t\t} catch (InterruptedException e) {\n\t\t\t\t\n\t\t\t\t\te.printStackTrace();\n\t\t\t\t}\n\t\t\t}\n\t\t\t\n\t\t\t// Here we just use synchronized when the first object\n\t\t\t// is created\n\t\t\t\n\t\t\tsynchronized(Singleton.class){ \n\t\t\t\n\t\t\t\tif(firstInstance == null) {\n\t\t\t\t\t// If the instance isn't needed it isn't created\n\t\t\t\t\t// This is known as lazy instantiation\n\t\t\t\n\t\t\t\t\tfirstInstance = new Singleton();\n\t\t\t\n\t\t\t\t\t// Shuffle the letters in the list\n\t\t\t\t\tCollections.shuffle(firstInstance.letterList);\n\t\t\t\t\t\n\t\t\t\t}\n\t\t\t\n\t\t\t}\n\t\t\t\n\t\t}\n\t\t\n\t\t// Under either circumstance this returns the instance\n\t\t\n\t\treturn firstInstance;\n\t}\n\t\n\tpublic LinkedList<String> getLetterList(){\n\t\t\n\t\treturn firstInstance.letterList;\n\t\t\n\t}\n\t\n\tpublic LinkedList<String> getTiles(int howManyTiles){\n\t\t\n\t\t// Tiles to be returned to the user\n\t\t\n\t\tLinkedList<String> tilesToSend = new LinkedList<String>();\n\t\t\n\t\t// Cycle through the LinkedList while adding the starting\n\t\t// Strings to the to be returned LinkedList while deleting\n\t\t// them from letterList\n\t\t\n\t\tfor(int i = 0; i <= howManyTiles; i++){\n\t\t\n\t\t\ttilesToSend.add(firstInstance.letterList.remove(0));\n\t\t\n\t\t}\n\t\t\n\t\t// Return the number of letter tiles requested\n\t\t\n\t\treturn tilesToSend;\n\t\t\n\t}\n\t\n}"
+  },
+  {
+    "repo_name": "built-in",
+    "file_path": "snippets/DatabaseConnection_Simple.java",
+    "class_name": "DatabaseConnection",
+    "code": "public class DatabaseConnection {\n    private static DatabaseConnection instance;\n    private Connection connection;\n\n    private DatabaseConnection() {\n        try {\n            connection = DriverManager.getConnection(\"jdbc:...\", \"user\", \"pass\");\n        } catch (SQLException e) {\n            throw new RuntimeException(e);\n        }\n    }\n\n    public static DatabaseConnection getInstance() {\n        if (instance == null) {\n            instance = new DatabaseConnection();\n        }\n        return instance;\n    }\n\n    public Connection getConnection() {\n        return connection;\n    }\n}",
+    "implementation_type": "simple",
+    "thread_safe": false,
+    "protection": "none"
+  },
+  {
+    "repo_name": "built-in",
+    "file_path": "snippets/DatabaseManager_DoubleChecked.java",
+    "class_name": "DatabaseManager",
+    "code": "public class DatabaseManager {\n    private static volatile DatabaseManager INSTANCE = null;\n\n    private DatabaseManager() {\n        if (INSTANCE != null) {\n            throw new RuntimeException(\"Use getInstance()\");\n        }\n    }\n\n    public static DatabaseManager getInstance() {\n        if (INSTANCE == null) {\n            synchronized (DatabaseManager.class) {\n                if (INSTANCE == null) {\n                    INSTANCE = new DatabaseManager();\n                }\n            }\n        }\n        return INSTANCE;\n    }\n}",
+    "implementation_type": "double_checked",
+    "thread_safe": true,
+    "protection": "reflection_safe"
+  },
+  {
+    "repo_name": "built-in",
+    "file_path": "snippets/BillPughSingleton.java",
+    "class_name": "BillPughSingleton",
+    "code": "public class BillPughSingleton {\n    private BillPughSingleton() {}\n\n    private static class Holder {\n        private static final BillPughSingleton INSTANCE = new BillPughSingleton();\n    }\n\n    public static BillPughSingleton getInstance() {\n        return Holder.INSTANCE;\n    }\n}",
+    "implementation_type": "bill_pugh",
+    "thread_safe": true,
+    "protection": "none"
+  },
+  {
+    "repo_name": "built-in",
+    "file_path": "snippets/SingletonEnum.java",
+    "class_name": "SingletonEnum",
+    "code": "public enum SingletonEnum {\n    INSTANCE;\n\n    private Connection connection;\n\n    private SingletonEnum() {\n        connection = ...; // initialize database connection\n    }\n\n    public Connection getConnection() {\n        return connection;\n    }\n}",
+    "implementation_type": "enum",
+    "thread_safe": true,
+    "protection": "reflection_serialization"
+  }
+]

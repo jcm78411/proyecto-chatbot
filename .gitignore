@@ -1,0 +1,42 @@
+# Entorno virtual
+venv/
+env/
+.venv/
+.env/
+
+# Archivos de configuración de entorno
+*.env
+*.env.*
+
+# Archivos compilados de Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Archivos de logs
+*.log
+
+# Archivos de bases de datos locales
+*.sqlite3
+
+# Archivos de Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Archivos de cache de pip
+pip-wheel-metadata/
+*.egg-info/
+dist/
+build/
+
+# Configuraciones específicas del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Configuraciones de editores de texto comunes
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# pyproject/poetry (opcional si usas Poetry o similares)
+poetry.lock

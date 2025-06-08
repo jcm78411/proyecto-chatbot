@@ -1,0 +1,22 @@
+[
+  {
+    "type": "unknown",
+    "content": "Este tipo de singleton no está categorizado. Requiere revisión para determinar su propósito exacto."
+  },
+  {
+    "type": "simple",
+    "content": "No se encontró teoría definida para el tipo simple."
+  },
+  {
+    "type": "double_checked",
+    "content": "No se encontró teoría definida para el tipo double_checked."
+  },
+  {
+    "type": "bill_pugh",
+    "content": "No se encontró teoría definida para el tipo bill_pugh."
+  },
+  {
+    "type": "enum",
+    "content": "No se encontró teoría definida para el tipo enum."
+  }
+]
