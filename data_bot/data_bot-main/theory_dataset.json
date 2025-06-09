@@ -1,7 +1,7 @@
 [
   {
     "type": "unknown",
-    "content": "Este tipo de singleton no está categorizado. Requiere revisión para determinar su propósito exacto."
+    "content": "Este tipo de singleton no está categorizado aún. Puede requerir revisión manual para determinar su propósito y mecanismo de implementación."
   },
   {
     "type": "simple",
@@ -9,14 +9,14 @@
   },
   {
     "type": "double_checked",
-    "content": "No se encontró teoría definida para el tipo double_checked."
+    "content": "Este patrón mejora la eficiencia del Singleton thread-safe mediante doble verificación: primero comprueba si la instancia existe sin bloqueo, y solo sincroniza cuando es necesario. Es eficiente pero requiere cuidado, especialmente en versiones antiguas de Java (pre-Java 5)."
   },
   {
     "type": "bill_pugh",
-    "content": "No se encontró teoría definida para el tipo bill_pugh."
+    "content": "Este patrón utiliza una clase interna estática (`static inner class`) para mantener la instancia única. La clase interna no se carga hasta que se invoca el método `getInstance()`, lo que permite inicialización perezosa y es seguro en entornos multihilo."
   },
   {
     "type": "enum",
-    "content": "No se encontró teoría definida para el tipo enum."
+    "content": "El patrón Singleton usando `enum` en Java es la forma más sencilla y segura de crear un singleton. Protege contra problemas de serialización, clonación y reflexión. El compilador asegura que solo exista una instancia del enum."
   }
 ]

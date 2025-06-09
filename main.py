@@ -20,17 +20,12 @@ stemmer = LancasterStemmer()
 dir_path = os.path.dirname(os.path.realpath(__file__))
 enriched_data_path = os.path.join(dir_path, "data_bot", "data_bot-main", "singleton_dataset_extended.json")
 
-# Cargar dataset enriquecido
 with open(enriched_data_path, "r", encoding="utf-8") as f:
     singleton_data = json.load(f)
 
-# Convertir dataset enriquecido a formato tipo "intents"
-import json
-
-with open("singleton_dataset_enriched.json", "r", encoding="utf-8") as f:
+with open("storage/data/singleton_dataset_enriched.json", "r", encoding="utf-8") as f:
     singleton_data = json.load(f)
 
-# Generar una lista de intents agrupados por tipo de implementación
 intents = {}
 for item in singleton_data:
     tag = item.get("implementation_type", "unknown")
@@ -61,10 +56,8 @@ for item in singleton_data:
     else:
         intents[tag]["responses"].append(example)
 
-# Convertir a lista de intents
 intents_list = {"intents": list(intents.values())}
 
-# Diccionario con teoría asociada a cada tipo de implementación
 implementation_theory = {
     "classic": (
         "El patrón Singleton clásico crea una única instancia de una clase y la almacena en una variable estática dentro de la propia clase. "
@@ -135,8 +128,6 @@ implementation_theory = {
     ),
 }
 
-
-# Generar teoría asociada a los tags encontrados en el dataset
 theory_dataset = []
 for intent in intents_list["intents"]:
     tag = intent["tag"]
@@ -146,13 +137,11 @@ for intent in intents_list["intents"]:
         "content": content
     })
 
-# Guardar archivo theory_dataset.json
 with open(os.path.join(dir_path, "data_bot", "data_bot-main", "theory_dataset.json"), "w", encoding="utf-8") as f:
     json.dump(theory_dataset, f, indent=2, ensure_ascii=False)
 
 print("Archivo 'theory_dataset.json' generado correctamente ✅")
 
-# Cargar teoría
 with open(os.path.join(dir_path, "data_bot", "data_bot-main", "theory_dataset.json"), "r", encoding="utf-8") as f:
     theory_data = json.load(f)
 
@@ -171,7 +160,6 @@ embedding_dim = theory_embeddings.shape[1]
 faiss_index = faiss.IndexFlatL2(embedding_dim)
 faiss_index.add(theory_embeddings) # type: ignore
 
-# Guardar como JSON si lo necesitas
 with open(os.path.join(dir_path, "data_bot", "data_bot-main", "data.json"), "w", encoding="utf-8") as f:
     json.dump(intents_list, f, indent=2, ensure_ascii=False)
 
@@ -257,7 +245,6 @@ else:
 def chat(text):
     text_lower = text.lower().strip()
     
-    # Lista de frases indicativas de consulta de tipos
     tipo_singleton_preguntas = [
         "¿qué tipos de patrones de diseño singleton conoces?",
         "¿cuáles son los tipos de singleton?",
@@ -303,41 +290,6 @@ def chat(text):
 
     respuesta = f"📚 *Teoría relacionada ({tag}):*\n{teoria_relacionada}\n\n💻 *Ejemplo de código:*\n{codigo}"
     return respuesta
-
-
-
-# def chat(text):
-#     # Preprocesamiento
-#     bow = [0] * len(all_words)
-#     words_in_input = [stemmer.stem(w.lower()) for w in word_tokenize(text)]
-#     for idx, w in enumerate(all_words):
-#         if w in words_in_input:
-#             bow[idx] = 1
-
-#     res = model.predict(np.array([bow]))[0]
-#     tag_index = np.argmax(res)
-#     tag = tags[tag_index]
-
-#     if res[tag_index] < 0.6:
-#         return "No entendí tu pregunta. ¿Podrías reformularla?"
-
-#     # Recuperar teoría con FAISS
-#     query_embedding = embedding_model.encode([text])[0]
-#     D, I = faiss_index.search(np.array([query_embedding]), k=1)
-#     if I[0][0] >= len(theory_data):
-#         teoria_relacionada = "No se encontró teoría relacionada."
-#     else:
-#         teoria_relacionada = theory_data[I[0][0]]["content"]
-
-#     # Obtener código del intent correspondiente
-#     if tag not in intents:
-#         return "Lo siento, no tengo ejemplos para ese tipo de implementación."
-
-#     codigo = random.choice(intents[tag]["responses"])
-
-#     respuesta = f"📚 *Teoría relacionada ({tag}):*\n{teoria_relacionada}\n\n💻 *Ejemplo de código:*\n{codigo}"
-#     return respuesta
-
     
 def main(page: ft.Page):
     
