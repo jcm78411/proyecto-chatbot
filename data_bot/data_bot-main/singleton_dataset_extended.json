@@ -3,8 +3,8 @@
     "repo_name": "100-words-design-patterns-java",
     "file_path": "java_repos\\100-words-design-patterns-java\\src\\main\\java\\com\\hundredwordsgof\\singleton\\Singleton.java",
     "class_name": "implements",
+    "implementation_type": "classic",
     "code": "package com.hundredwordsgof.singleton;\npublic class Singleton {\n  private static Singleton INSTANCE;\n  private Singleton() {\n  }\n  public static Singleton getInstance() {\n    if (INSTANCE == null) {\n      INSTANCE = new Singleton();\n    }\n    return INSTANCE;\n  }\n}",
-    "implementation_type": null,
     "thread_safe": null,
     "protection": null
   },
@@ -12,8 +12,8 @@
     "repo_name": "MasterSeleniumFramework_BDD",
     "file_path": "java_repos\\MasterSeleniumFramework_BDD\\src\\test\\java\\awesomecucumber\\utils\\ConfigLoader.java",
     "class_name": "ConfigLoader",
+    "implementation_type": "classic",
     "code": "package awesomecucumber.utils;\nimport static awesomecucumber.constants.FrameworkConstants.DIRECTORY_ENV_CONFIG;\nimport static awesomecucumber.constants.FrameworkConstants.ENV_CONFIG_INT;\nimport static awesomecucumber.constants.FrameworkConstants.ENV_CONFIG_PROD;\nimport static awesomecucumber.constants.FrameworkConstants.ENV_CONFIG_QA;\nimport static awesomecucumber.constants.FrameworkConstants.ENV_CONFIG_STG;\nimport static awesomecucumber.constants.FrameworkConstants.PARAMETER_ENV;\nimport java.util.Properties;\nimport awesomecucumber.enums.EnvType;\npublic class ConfigLoader {\n\tprivate static final String BASE_URL = \"baseUrl\";\n\tprivate static final String SEND_EMAIL_TO_USERS = \"send_email_to_users\";\n\tprivate Properties properties;\n\tprivate static ConfigLoader configLoader;\n\tprivate ConfigLoader() {\n\t\tString env = System.getProperty(PARAMETER_ENV, String.valueOf(EnvType.STG));\n\t\tswitch (EnvType.valueOf(env)) {\n\t\tcase QA: {\n\t\t\tproperties = PropertyUtils.propertyLoader(DIRECTORY_ENV_CONFIG + ENV_CONFIG_QA);\n\t\t\tbreak;\n\t\t}\n\t\tcase INT: {\n\t\t\tproperties = PropertyUtils.propertyLoader(DIRECTORY_ENV_CONFIG + ENV_CONFIG_INT);\n\t\t\tbreak;\n\t\t}\n\t\tcase STG: {\n\t\t\tproperties = PropertyUtils.propertyLoader(DIRECTORY_ENV_CONFIG + ENV_CONFIG_STG);\n\t\t\tbreak;\n\t\t}\n\t\tcase PROD: {\n\t\t\tproperties = PropertyUtils.propertyLoader(DIRECTORY_ENV_CONFIG + ENV_CONFIG_PROD);\n\t\t\tbreak;\n\t\t}\n\t\tdefault:\n\t\t\tthrow new IllegalStateException(\"INVALID ENV: \" + env);\n\t\t}\n\t}\n\tpublic static ConfigLoader getInstance() {\n\t\tif (configLoader == null) {\n\t\t\tconfigLoader = new ConfigLoader();\n\t\t}\n\t\treturn configLoader;\n\t}\n\tpublic String getBaseUrl() {\n\t\treturn getPropertyValue(BASE_URL);\n\t}\n\tpublic String getSendEmailToUsers() {\n\t\treturn getPropertyValue(SEND_EMAIL_TO_USERS);\n\t}\n\tprivate String getPropertyValue(String propertyKey) {\n\t\tString prop = properties.getProperty(propertyKey);\n\t\tif (prop != null) {\n\t\t\treturn prop.trim();\n\t\t} else {\n\t\t\tthrow new RuntimeException(\"Property \" + propertyKey + \" is not specified in the config.properties file\");\n\t\t}\n\t}\n}",
-    "implementation_type": null,
     "thread_safe": null,
     "protection": null
   },
@@ -21,8 +21,8 @@
     "repo_name": "JavaCode",
     "file_path": "java_repos\\JavaCode\\Java Code\\Singleton.java",
     "class_name": "Singleton",
+    "implementation_type": "double_checked",
     "code": "import java.util.Arrays;\nimport java.util.Collections;\nimport java.util.LinkedList;\npublic class Singleton {\n\tprivate static Singleton firstInstance = null;\n\tString[] scrabbleLetters = {\"a\", \"a\", \"a\", \"a\", \"a\", \"a\", \"a\", \"a\", \"a\",\n\t\t\t\"b\", \"b\", \"c\", \"c\", \"d\", \"d\", \"d\", \"d\", \"e\", \"e\", \"e\", \"e\", \"e\", \n\t\t\t\"e\", \"e\", \"e\", \"e\", \"e\", \"e\", \"e\", \"f\", \"f\", \"g\", \"g\", \"g\", \"h\", \n\t\t\t\"h\", \"i\", \"i\", \"i\", \"i\", \"i\", \"i\", \"i\", \"i\", \"i\", \"j\", \"k\", \"l\", \n\t\t\t\"l\", \"l\", \"l\", \"m\", \"m\", \"n\", \"n\", \"n\", \"n\", \"n\", \"n\", \"o\", \"o\", \n\t\t\t\"o\", \"o\", \"o\", \"o\", \"o\", \"o\", \"p\", \"p\", \"q\", \"r\", \"r\", \"r\", \"r\", \n\t\t\t\"r\", \"r\", \"s\", \"s\", \"s\", \"s\", \"t\", \"t\", \"t\", \"t\", \"t\", \"t\", \"u\", \n\t\t\t\"u\", \"u\", \"u\", \"v\", \"v\", \"w\", \"w\", \"x\", \"y\", \"y\", \"z\",};  \n\tprivate LinkedList<String> letterList = new LinkedList<String> (Arrays.asList(scrabbleLetters));\n\tstatic boolean firstThread = true;\n\tprivate Singleton() { }\n\tpublic static Singleton getInstance() {\n\t\tif(firstInstance == null) {\n\t\t\tif(firstThread){\n\t\t\t\tfirstThread = false;\n\t\t\t\ttry {\n\t\t\t\t\tThread.currentThread();\n\t\t\t\t\tThread.sleep(1000);\n\t\t\t\t} catch (InterruptedException e) {\n\t\t\t\t\te.printStackTrace();\n\t\t\t\t}\n\t\t\t}\n\t\t\tsynchronized(Singleton.class){ \n\t\t\t\tif(firstInstance == null) {\n\t\t\t\t\tfirstInstance = new Singleton();\n\t\t\t\t\tCollections.shuffle(firstInstance.letterList);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\treturn firstInstance;\n\t}\n\tpublic LinkedList<String> getLetterList(){\n\t\treturn firstInstance.letterList;\n\t}\n\tpublic LinkedList<String> getTiles(int howManyTiles){\n\t\tLinkedList<String> tilesToSend = new LinkedList<String>();\n\t\tfor(int i = 0; i <= howManyTiles; i++){\n\t\t\ttilesToSend.add(firstInstance.letterList.remove(0));\n\t\t}\n\t\treturn tilesToSend;\n\t}\n}",
-    "implementation_type": null,
     "thread_safe": null,
     "protection": null
   },
@@ -30,8 +30,8 @@
     "repo_name": "built-in",
     "file_path": "snippets/DatabaseConnection_Simple.java",
     "class_name": "DatabaseConnection",
-    "code": "public class DatabaseConnection {\n    private static DatabaseConnection instance;\n    private Connection connection;\n    private DatabaseConnection() {\n        try {\n            connection = DriverManager.getConnection(\"jdbc:...\", \"user\", \"pass\");\n        } catch (SQLException e) {\n            throw new RuntimeException(e);\n        }\n    }\n    public static DatabaseConnection getInstance() {\n        if (instance == null) {\n            instance = new DatabaseConnection();\n        }\n        return instance;\n    }\n    public Connection getConnection() {\n        return connection;\n    }\n}",
     "implementation_type": "simple",
+    "code": "public class DatabaseConnection {\n    private static DatabaseConnection instance;\n    private Connection connection;\n    private DatabaseConnection() {\n        try {\n            connection = DriverManager.getConnection(\"jdbc:...\", \"user\", \"pass\");\n        } catch (SQLException e) {\n            throw new RuntimeException(e);\n        }\n    }\n    public static DatabaseConnection getInstance() {\n        if (instance == null) {\n            instance = new DatabaseConnection();\n        }\n        return instance;\n    }\n    public Connection getConnection() {\n        return connection;\n    }\n}",
     "thread_safe": false,
     "protection": "none"
   },
@@ -39,8 +39,8 @@
     "repo_name": "built-in",
     "file_path": "snippets/DatabaseManager_DoubleChecked.java",
     "class_name": "DatabaseManager",
-    "code": "public class DatabaseManager {\n    private static volatile DatabaseManager INSTANCE = null;\n    private DatabaseManager() {\n        if (INSTANCE != null) {\n            throw new RuntimeException(\"Use getInstance()\");\n        }\n    }\n    public static DatabaseManager getInstance() {\n        if (INSTANCE == null) {\n            synchronized (DatabaseManager.class) {\n                if (INSTANCE == null) {\n                    INSTANCE = new DatabaseManager();\n                }\n            }\n        }\n        return INSTANCE;\n    }\n}",
     "implementation_type": "double_checked",
+    "code": "public class DatabaseManager {\n    private static volatile DatabaseManager INSTANCE = null;\n    private DatabaseManager() {\n        if (INSTANCE != null) {\n            throw new RuntimeException(\"Use getInstance()\");\n        }\n    }\n    public static DatabaseManager getInstance() {\n        if (INSTANCE == null) {\n            synchronized (DatabaseManager.class) {\n                if (INSTANCE == null) {\n                    INSTANCE = new DatabaseManager();\n                }\n            }\n        }\n        return INSTANCE;\n    }\n}",
     "thread_safe": true,
     "protection": "reflection_safe"
   },
@@ -48,8 +48,8 @@
     "repo_name": "built-in",
     "file_path": "snippets/BillPughSingleton.java",
     "class_name": "BillPughSingleton",
-    "code": "public class BillPughSingleton {\n    private BillPughSingleton() {}\n    private static class Holder {\n        private static final BillPughSingleton INSTANCE = new BillPughSingleton();\n    }\n    public static BillPughSingleton getInstance() {\n        return Holder.INSTANCE;\n    }\n}",
     "implementation_type": "bill_pugh",
+    "code": "public class BillPughSingleton {\n    private BillPughSingleton() {}\n    private static class Holder {\n        private static final BillPughSingleton INSTANCE = new BillPughSingleton();\n    }\n    public static BillPughSingleton getInstance() {\n        return Holder.INSTANCE;\n    }\n}",
     "thread_safe": true,
     "protection": "none"
   },
@@ -57,8 +57,8 @@
     "repo_name": "built-in",
     "file_path": "snippets/SingletonEnum.java",
     "class_name": "SingletonEnum",
-    "code": "public enum SingletonEnum {\n    INSTANCE;\n    private Connection connection;\n    private SingletonEnum() {\n        connection = ...; \n    }\n    public Connection getConnection() {\n        return connection;\n    }\n}",
     "implementation_type": "enum",
+    "code": "public enum SingletonEnum {\n    INSTANCE;\n    private Connection connection;\n    private SingletonEnum() {\n        connection = ...; \n    }\n    public Connection getConnection() {\n        return connection;\n    }\n}",
     "thread_safe": true,
     "protection": "reflection_serialization"
   },
@@ -66,8 +66,8 @@
     "repo_name": "generated_singletons_classic",
     "file_path": "generated/classic/Singleton1.java",
     "class_name": "ClassicSingleton",
-    "code": "    public class ClassicSingleton {\n        private static ClassicSingleton instance;\n        private ClassicSingleton() {}\n        public static ClassicSingleton getInstance() {\n            if (instance == null) {\n                instance = new ClassicSingleton();\n            }\n            return instance;\n        }\n    }",
     "implementation_type": "classic",
+    "code": "    public class ClassicSingleton {\n        private static ClassicSingleton instance;\n        private ClassicSingleton() {}\n        public static ClassicSingleton getInstance() {\n            if (instance == null) {\n                instance = new ClassicSingleton();\n            }\n            return instance;\n        }\n    }",
     "thread_safe": false,
     "protection": "none"
   },
@@ -75,8 +75,8 @@
     "repo_name": "generated_singletons_eager",
     "file_path": "generated/eager/Singleton1.java",
     "class_name": "EagerSingleton",
-    "code": "    public class EagerSingleton {\n        private static final EagerSingleton instance = new EagerSingleton();\n        private EagerSingleton() {}\n        public static EagerSingleton getInstance() {\n            return instance;\n        }\n    }",
     "implementation_type": "eager",
+    "code": "    public class EagerSingleton {\n        private static final EagerSingleton instance = new EagerSingleton();\n        private EagerSingleton() {}\n        public static EagerSingleton getInstance() {\n            return instance;\n        }\n    }",
     "thread_safe": true,
     "protection": "none"
   },
@@ -84,8 +84,8 @@
     "repo_name": "generated_singletons_inner_static_class",
     "file_path": "generated/inner_static_class/Singleton1.java",
     "class_name": "InnerStaticSingleton",
-    "code": "    public class InnerStaticSingleton {\n        private InnerStaticSingleton() {}\n        private static class Holder {\n            private static final InnerStaticSingleton INSTANCE = new InnerStaticSingleton();\n        }\n        public static InnerStaticSingleton getInstance() {\n            return Holder.INSTANCE;\n        }\n    }",
     "implementation_type": "inner_static_class",
+    "code": "    public class InnerStaticSingleton {\n        private InnerStaticSingleton() {}\n        private static class Holder {\n            private static final InnerStaticSingleton INSTANCE = new InnerStaticSingleton();\n        }\n        public static InnerStaticSingleton getInstance() {\n            return Holder.INSTANCE;\n        }\n    }",
     "thread_safe": true,
     "protection": "none"
   },
@@ -93,8 +93,8 @@
     "repo_name": "generated_singletons_lazy",
     "file_path": "generated/lazy/Singleton1.java",
     "class_name": "LazySingleton",
-    "code": "    public class LazySingleton {\n        private static LazySingleton instance;\n        private LazySingleton() {}\n        public static LazySingleton getInstance() {\n            if (instance == null) {\n                instance = new LazySingleton();\n            }\n            return instance;\n        }\n    }",
     "implementation_type": "lazy",
+    "code": "    public class LazySingleton {\n        private static LazySingleton instance;\n        private LazySingleton() {}\n        public static LazySingleton getInstance() {\n            if (instance == null) {\n                instance = new LazySingleton();\n            }\n            return instance;\n        }\n    }",
     "thread_safe": false,
     "protection": "none"
   },
@@ -102,8 +102,8 @@
     "repo_name": "generated_singletons_reflection_safe",
     "file_path": "generated/reflection_safe/Singleton1.java",
     "class_name": "ReflectionSafeSingleton",
-    "code": "    public class ReflectionSafeSingleton {\n        private static ReflectionSafeSingleton instance;\n        private ReflectionSafeSingleton() {\n            if (instance != null) {\n                throw new RuntimeException(\"Use getInstance() method\");\n            }\n        }\n        public static ReflectionSafeSingleton getInstance() {\n            if (instance == null) {\n                instance = new ReflectionSafeSingleton();\n            }\n            return instance;\n        }\n    }",
     "implementation_type": "reflection_safe",
+    "code": "    public class ReflectionSafeSingleton {\n        private static ReflectionSafeSingleton instance;\n        private ReflectionSafeSingleton() {\n            if (instance != null) {\n                throw new RuntimeException(\"Use getInstance() method\");\n            }\n        }\n        public static ReflectionSafeSingleton getInstance() {\n            if (instance == null) {\n                instance = new ReflectionSafeSingleton();\n            }\n            return instance;\n        }\n    }",
     "thread_safe": false,
     "protection": "reflection_safe"
   },
@@ -111,8 +111,8 @@
     "repo_name": "generated_singletons_registry",
     "file_path": "generated/registry/Singleton1.java",
     "class_name": "SingletonRegistry",
-    "code": "    import java.util.HashMap;\n    import java.util.Map;\n    public class SingletonRegistry {\n        private static Map<String, Object> registry = new HashMap<>();\n        public static Object getInstance(String className) {\n            return registry.get(className);\n        }\n        public static void register(String className, Object instance) {\n            registry.put(className, instance);\n        }\n    }",
     "implementation_type": "registry",
+    "code": "    import java.util.HashMap;\n    import java.util.Map;\n    public class SingletonRegistry {\n        private static Map<String, Object> registry = new HashMap<>();\n        public static Object getInstance(String className) {\n            return registry.get(className);\n        }\n        public static void register(String className, Object instance) {\n            registry.put(className, instance);\n        }\n    }",
     "thread_safe": false,
     "protection": "none"
   },
@@ -120,8 +120,8 @@
     "repo_name": "generated_singletons_static_block",
     "file_path": "generated/static_block/Singleton1.java",
     "class_name": "StaticBlockSingleton",
-    "code": "    public class StaticBlockSingleton {\n        private static StaticBlockSingleton instance;\n        static {\n            try {\n                instance = new StaticBlockSingleton();\n            } catch (Exception e) {\n                throw new RuntimeException(\"Exception during instance creation\");\n            }\n        }\n        private StaticBlockSingleton() {}\n        public static StaticBlockSingleton getInstance() {\n            return instance;\n        }\n    }",
     "implementation_type": "static_block",
+    "code": "    public class StaticBlockSingleton {\n        private static StaticBlockSingleton instance;\n        static {\n            try {\n                instance = new StaticBlockSingleton();\n            } catch (Exception e) {\n                throw new RuntimeException(\"Exception during instance creation\");\n            }\n        }\n        private StaticBlockSingleton() {}\n        public static StaticBlockSingleton getInstance() {\n            return instance;\n        }\n    }",
     "thread_safe": true,
     "protection": "none"
   },
@@ -129,8 +129,8 @@
     "repo_name": "generated_singletons_synchronized",
     "file_path": "generated/synchronized/Singleton1.java",
     "class_name": "SynchronizedSingleton",
-    "code": "    public class SynchronizedSingleton {\n        private static SynchronizedSingleton instance;\n        private SynchronizedSingleton() {}\n        public static synchronized SynchronizedSingleton getInstance() {\n            if (instance == null) {\n                instance = new SynchronizedSingleton();\n            }\n            return instance;\n        }\n    }",
     "implementation_type": "synchronized",
+    "code": "    public class SynchronizedSingleton {\n        private static SynchronizedSingleton instance;\n        private SynchronizedSingleton() {}\n        public static synchronized SynchronizedSingleton getInstance() {\n            if (instance == null) {\n                instance = new SynchronizedSingleton();\n            }\n            return instance;\n        }\n    }",
     "thread_safe": true,
     "protection": "none"
   },
@@ -138,8 +138,8 @@
     "repo_name": "generated_singletons_thread_safe",
     "file_path": "generated/thread_safe/Singleton1.java",
     "class_name": "ThreadSafeSingleton",
-    "code": "    public class ThreadSafeSingleton {\n        private static ThreadSafeSingleton instance = new ThreadSafeSingleton();\n        private ThreadSafeSingleton() {}\n        public static ThreadSafeSingleton getInstance() {\n            return instance;\n        }\n    }",
     "implementation_type": "thread_safe",
+    "code": "    public class ThreadSafeSingleton {\n        private static ThreadSafeSingleton instance = new ThreadSafeSingleton();\n        private ThreadSafeSingleton() {}\n        public static ThreadSafeSingleton getInstance() {\n            return instance;\n        }\n    }",
     "thread_safe": true,
     "protection": "none"
   },
@@ -147,8 +147,8 @@
     "repo_name": "generated_singletons_volatile",
     "file_path": "generated/volatile/Singleton1.java",
     "class_name": "VolatileSingleton",
-    "code": "    public class VolatileSingleton {\n        private static volatile VolatileSingleton instance;\n        private VolatileSingleton() {}\n        public static VolatileSingleton getInstance() {\n            if (instance == null) {\n                synchronized (VolatileSingleton.class) {\n                    if (instance == null) {\n                        instance = new VolatileSingleton();\n                    }\n                }\n            }\n            return instance;\n        }\n    }",
     "implementation_type": "volatile",
+    "code": "    public class VolatileSingleton {\n        private static volatile VolatileSingleton instance;\n        private VolatileSingleton() {}\n        public static VolatileSingleton getInstance() {\n            if (instance == null) {\n                synchronized (VolatileSingleton.class) {\n                    if (instance == null) {\n                        instance = new VolatileSingleton();\n                    }\n                }\n            }\n            return instance;\n        }\n    }",
     "thread_safe": true,
     "protection": "none"
   }
