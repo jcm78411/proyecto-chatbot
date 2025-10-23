@@ -1,22 +1,58 @@
 [
   {
-    "type": "unknown",
-    "content": "Este tipo de singleton no está categorizado aún. Puede requerir revisión manual para determinar su propósito y mecanismo de implementación."
+    "type": "classic",
+    "content": "El patrón Singleton clásico crea una única instancia de una clase y la almacena en una variable estática dentro de la propia clase. Se proporciona un método de acceso (normalmente llamado `getInstance()` o similar) que devuelve esta instancia. Este enfoque es simple y funciona bien en entornos de un solo hilo, pero **no es seguro en entornos multihilo**, ya que dos hilos podrían crear instancias simultáneamente. No incluye control sobre la inicialización diferida ni medidas contra reflexión o serialización."
+  },
+  {
+    "type": "double_checked",
+    "content": "La doble verificación mejora la eficiencia del thread-safe clásico. Primero verifica si la instancia ya fue creada sin sincronización. Solo si no existe, se entra en una sección crítica sincronizada y se vuelve a verificar. Esto evita sincronizar cada llamada después de la primera. **Requiere declarar la instancia como `volatile`** en Java para evitar problemas con el orden de ejecución en entornos multihilo."
   },
   {
     "type": "simple",
     "content": "No se encontró teoría definida para el tipo simple."
   },
   {
-    "type": "double_checked",
-    "content": "Este patrón mejora la eficiencia del Singleton thread-safe mediante doble verificación: primero comprueba si la instancia existe sin bloqueo, y solo sincroniza cuando es necesario. Es eficiente pero requiere cuidado, especialmente en versiones antiguas de Java (pre-Java 5)."
-  },
-  {
     "type": "bill_pugh",
-    "content": "Este patrón utiliza una clase interna estática (`static inner class`) para mantener la instancia única. La clase interna no se carga hasta que se invoca el método `getInstance()`, lo que permite inicialización perezosa y es seguro en entornos multihilo."
+    "content": "Utiliza una clase interna estática (`static inner class`) que contiene la instancia singleton. La clase no se carga hasta que se llama al método `getInstance()`, lo que garantiza inicialización diferida y seguridad en múltiples hilos. **No requiere sincronización manual**, ya que la JVM asegura la carga del `classloader` de manera segura. Es considerado uno de los enfoques más elegantes y eficientes en Java moderno."
   },
   {
     "type": "enum",
-    "content": "El patrón Singleton usando `enum` en Java es la forma más sencilla y segura de crear un singleton. Protege contra problemas de serialización, clonación y reflexión. El compilador asegura que solo exista una instancia del enum."
+    "content": "El patrón Singleton con `enum` en Java es considerado el más robusto y seguro. Permite al compilador garantizar que solo existe una instancia, incluso frente a ataques por reflexión, clonación o deserialización. Es muy conciso (`INSTANCE;`) y **recomendado por Joshua Bloch en Effective Java**. No permite lazy initialization, pero a cambio ofrece simplicidad y protección avanzada."
+  },
+  {
+    "type": "eager",
+    "content": "La instancia se crea en el momento de la carga de la clase, ya sea al declarar directamente el campo o mediante un bloque estático. Esto **garantiza la disponibilidad inmediata y seguridad en multihilo**, pero puede generar uso innecesario de memoria si la instancia nunca se usa. Es útil cuando se sabe con certeza que la instancia será requerida."
+  },
+  {
+    "type": "inner_static_class",
+    "content": "Es una forma más precisa de referirse al patrón Bill Pugh. Utiliza una clase estática interna para mantener la instancia singleton. Aprovecha la carga diferida del `classloader`, lo cual garantiza inicialización perezosa y segura en múltiples hilos sin sincronización explícita. Ideal en Java, ya que combina eficiencia, simplicidad y robustez."
+  },
+  {
+    "type": "lazy",
+    "content": "El Singleton lazy (inicialización diferida) retrasa la creación de la instancia hasta que esta es solicitada por primera vez. Esto reduce el uso innecesario de recursos si la instancia nunca llega a utilizarse. Sin embargo, **no es seguro en entornos multihilo a menos que se agregue sincronización** explícita. Es adecuado cuando la instancia es costosa de construir o puede no ser necesaria en todos los casos de uso."
+  },
+  {
+    "type": "reflection_safe",
+    "content": "Previene ataques por reflexión que podrían permitir la creación de múltiples instancias. El constructor privado lanza una excepción si ya existe una instancia, validando una variable de control antes de permitir la construcción. **Importante en Java**, donde es posible acceder a constructores privados mediante APIs de reflexión. No es infalible, pero añade una capa importante de seguridad a la implementación Singleton."
+  },
+  {
+    "type": "registry",
+    "content": "Este patrón extiende el Singleton tradicional permitiendo múltiples instancias únicas, cada una asociada a una clave (nombre, tipo, contexto). Todas las instancias se almacenan en un `map` o `diccionario` central. Es útil en aplicaciones grandes donde se requiere más de un singleton especializado. Permite controlar y desacoplar el acceso a diferentes instancias desde un único punto de gestión."
+  },
+  {
+    "type": "static_block",
+    "content": "Similar al eager, pero permite envolver la creación de la instancia en un bloque `static {}` para manejar posibles excepciones. Esto es útil cuando la instancia depende de operaciones que puedan fallar (por ejemplo, lectura de archivos de configuración o acceso a recursos externos). Combina seguridad de carga temprana con manejo de errores."
+  },
+  {
+    "type": "synchronized",
+    "content": "En este patrón, el método `getInstance()` está completamente sincronizado, lo que significa que solo un hilo puede ejecutarlo a la vez. Esto resuelve los problemas de concurrencia, pero **introduce una penalización de rendimiento**, ya que incluso cuando la instancia ya existe, se sigue sincronizando. Es fácil de implementar pero no ideal para escenarios con muchas llamadas a `getInstance()`."
+  },
+  {
+    "type": "thread_safe",
+    "content": "El Singleton thread-safe garantiza que solo un hilo pueda crear la instancia, utilizando mecanismos como `synchronized`, `Lock`, o semáforos. Esto evita condiciones de carrera, pero **puede generar cuellos de botella por la sobrecarga de sincronización** si se accede frecuentemente al método. Es una solución correcta en aplicaciones concurrentes, pero puede no ser la más eficiente."
+  },
+  {
+    "type": "volatile",
+    "content": "Usa la palabra clave `volatile` para garantizar la visibilidad inmediata de la instancia entre hilos. Suele combinarse con la doble verificación para lograr **eficiencia, seguridad y correcta propagación del valor** en entornos multihilo. Sin `volatile`, un hilo podría ver una versión parcialmente construida del objeto debido a reordenamientos del compilador o CPU."
   }
 ]

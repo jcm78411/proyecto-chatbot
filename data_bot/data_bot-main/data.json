@@ -1,51 +1,28 @@
 {
   "intents": [
     {
-      "tag": "unknown",
+      "tag": "classic",
       "patterns": [
-        "¿Cómo se implementa un singleton tipo unknown?",
-        "¿Tienes una implementación unknown?",
-        "¿Me puedes mostrar un singleton con el estilo unknown?",
-        "¿Cuál es el código de singleton versión unknown?",
-        "¿Cómo hago una clase singleton usando el método unknown?",
-        "Dame un ejemplo de singleton con enfoque unknown",
-        "Quiero un singleton tipo unknown, ¿puedes ayudarme?",
-        "¿Hay alguna forma de implementar singleton como unknown?",
-        "¿Puedes escribirme una clase singleton tipo unknown?",
-        "Explícame un singleton con patrón unknown",
-        "¿En qué consiste una implementación unknown del patrón singleton?",
-        "¿Tienes código unknown de singleton?",
-        "¿Puedes darme una muestra del singleton unknown?",
-        "¿Cómo luce una clase singleton con el estilo unknown?",
-        "¿Puedes generar un ejemplo unknown para el patrón singleton?"
+        "¿Cómo se implementa un singleton tipo classic?",
+        "¿Tienes una implementación classic?",
+        "¿Me puedes mostrar un singleton con el estilo classic?",
+        "¿Cuál es el código de singleton versión classic?",
+        "¿Cómo hago una clase singleton usando el método classic?",
+        "Dame un ejemplo de singleton con enfoque classic",
+        "Quiero un singleton tipo classic, ¿puedes ayudarme?",
+        "¿Hay alguna forma de implementar singleton como classic?",
+        "¿Puedes escribirme una clase singleton tipo classic?",
+        "Explícame un singleton con patrón classic",
+        "¿En qué consiste una implementación classic del patrón singleton?",
+        "¿Tienes código classic de singleton?",
+        "¿Puedes darme una muestra del singleton classic?",
+        "¿Cómo luce una clase singleton con el estilo classic?",
+        "¿Puedes generar un ejemplo classic para el patrón singleton?"
       ],
       "responses": [
-        "Ejemplo de código (unknown):\n\npackage com.hundredwordsgof.singleton;\n\n/**\n * Singleton class implements singleton pattern. Only one object can be\n * instantiated.\n * \n */\npublic class Singleton {\n\n  /**\n   * Holds reference to single instance.\n   */\n  private static Singleton INSTANCE;\n\n  /**\n   * Overrides public Constructor.\n   */\n  private Singleton() {\n  }\n\n  /**\n   * Creates the instance if it does not yet exist(lazy instantiation).\n   * \n   * @return a reference to the single instance.\n   */\n  public static Singleton getInstance() {\n    if (INSTANCE == null) {\n      INSTANCE = new Singleton();\n    }\n    return INSTANCE;\n  }\n}",
-        "Ejemplo de código (unknown):\n\n/**\n * @author Rajat Verma\n * https://www.linkedin.com/in/rajat-v-3b0685128/\n * https://github.com/rajatt95\n * https://rajatt95.github.io/\n *\n * Course: Cucumber BDD Masterclass with Selenium 4 & Java + Framework (https://www.udemy.com/course/cucumber-bdd-masterclass/)\n * Tutor: Omprakash Chavan (https://www.udemy.com/user/omprakash-chavan/)\n */\n\n/***************************************************/\n\npackage awesomecucumber.utils;\n\nimport static awesomecucumber.constants.FrameworkConstants.DIRECTORY_ENV_CONFIG;\nimport static awesomecucumber.constants.FrameworkConstants.ENV_CONFIG_INT;\nimport static awesomecucumber.constants.FrameworkConstants.ENV_CONFIG_PROD;\nimport static awesomecucumber.constants.FrameworkConstants.ENV_CONFIG_QA;\nimport static awesomecucumber.constants.FrameworkConstants.ENV_CONFIG_STG;\nimport static awesomecucumber.constants.FrameworkConstants.PARAMETER_ENV;\n\nimport java.util.Properties;\n\nimport awesomecucumber.enums.EnvType;\n\n/**\n * Singleton Design Pattern is implemented here\n */\npublic class ConfigLoader {\n\n\tprivate static final String BASE_URL = \"baseUrl\";\n\tprivate static final String SEND_EMAIL_TO_USERS = \"send_email_to_users\";\n\n\n\t// private final Properties properties;\n\tprivate Properties properties;\n\n\tprivate static ConfigLoader configLoader;\n\n\tprivate ConfigLoader() {\n\n\t\t/**\n\t\t * Setting the Environment Parameter here.\n\t\t * \n\t\t * By default, Stage will be taken\n\t\t */\n\t\t// PARAMETER_ENV = \"env\";\n\t\tString env = System.getProperty(PARAMETER_ENV, String.valueOf(EnvType.STG));\n\n\t\tswitch (EnvType.valueOf(env)) {\n\n\t\tcase QA: {\n\t\t\tproperties = PropertyUtils.propertyLoader(DIRECTORY_ENV_CONFIG + ENV_CONFIG_QA);\n\t\t\tbreak;\n\t\t}\n\t\tcase INT: {\n\t\t\tproperties = PropertyUtils.propertyLoader(DIRECTORY_ENV_CONFIG + ENV_CONFIG_INT);\n\t\t\tbreak;\n\t\t}\n\t\tcase STG: {\n\t\t\tproperties = PropertyUtils.propertyLoader(DIRECTORY_ENV_CONFIG + ENV_CONFIG_STG);\n\t\t\tbreak;\n\t\t}\n\t\tcase PROD: {\n\t\t\tproperties = PropertyUtils.propertyLoader(DIRECTORY_ENV_CONFIG + ENV_CONFIG_PROD);\n\t\t\tbreak;\n\t\t}\n\t\tdefault:\n\t\t\tthrow new IllegalStateException(\"INVALID ENV: \" + env);\n\t\t}\n\t}\n\n\tpublic static ConfigLoader getInstance() {\n\t\tif (configLoader == null) {\n\t\t\tconfigLoader = new ConfigLoader();\n\t\t}\n\t\treturn configLoader;\n\t}\n\n\tpublic String getBaseUrl() {\n\t\treturn getPropertyValue(BASE_URL);\n\t}\n\n\tpublic String getSendEmailToUsers() {\n\t\treturn getPropertyValue(SEND_EMAIL_TO_USERS);\n\t}\n\t\n\tprivate String getPropertyValue(String propertyKey) {\n\t\tString prop = properties.getProperty(propertyKey);\n\t\tif (prop != null) {\n\t\t\treturn prop.trim();\n\t\t} else {\n\t\t\tthrow new RuntimeException(\"Property \" + propertyKey + \" is not specified in the config.properties file\");\n\t\t}\n\t}\n\t\n\t\n}",
-        "Ejemplo de código (unknown):\n\nimport java.util.Arrays;\nimport java.util.Collections;\nimport java.util.LinkedList;\n\npublic class Singleton {\n\t\n\tprivate static Singleton firstInstance = null;\n\t\n\tString[] scrabbleLetters = {\"a\", \"a\", \"a\", \"a\", \"a\", \"a\", \"a\", \"a\", \"a\",\n\t\t\t\"b\", \"b\", \"c\", \"c\", \"d\", \"d\", \"d\", \"d\", \"e\", \"e\", \"e\", \"e\", \"e\", \n\t\t\t\"e\", \"e\", \"e\", \"e\", \"e\", \"e\", \"e\", \"f\", \"f\", \"g\", \"g\", \"g\", \"h\", \n\t\t\t\"h\", \"i\", \"i\", \"i\", \"i\", \"i\", \"i\", \"i\", \"i\", \"i\", \"j\", \"k\", \"l\", \n\t\t\t\"l\", \"l\", \"l\", \"m\", \"m\", \"n\", \"n\", \"n\", \"n\", \"n\", \"n\", \"o\", \"o\", \n\t\t\t\"o\", \"o\", \"o\", \"o\", \"o\", \"o\", \"p\", \"p\", \"q\", \"r\", \"r\", \"r\", \"r\", \n\t\t\t\"r\", \"r\", \"s\", \"s\", \"s\", \"s\", \"t\", \"t\", \"t\", \"t\", \"t\", \"t\", \"u\", \n\t\t\t\"u\", \"u\", \"u\", \"v\", \"v\", \"w\", \"w\", \"x\", \"y\", \"y\", \"z\",};  \n\t\n\tprivate LinkedList<String> letterList = new LinkedList<String> (Arrays.asList(scrabbleLetters));\n   \n    // Used to slow down 1st thread\n\tstatic boolean firstThread = true;\n\t\n\t// Created to keep users from instantiation\n\t// Only Singleton will be able to instantiate this class\n   \n\tprivate Singleton() { }\n\t\n\t// We could make getInstance a synchronized method to force \n\t// every thread to wait its turn. That way only one thread\n\t// can access a method at a time. This can really slow everything\n\t// down though\n\t// public static synchronized Singleton getInstance()\n\t\n\tpublic static Singleton getInstance() {\n\t\tif(firstInstance == null) {\n\t\t\t\n\t\t\t// This is here to test what happens if threads try\n\t\t\t// to create instances of this class\n\t\t\t\n\t\t\tif(firstThread){\n\t\t\t\n\t\t\t\tfirstThread = false;\n\t\t\t\t\n\t\t\t\ttry {\n\t\t\t\t\tThread.currentThread();\n\t\t\t\t\tThread.sleep(1000);\n\t\t\t\t} catch (InterruptedException e) {\n\t\t\t\t\n\t\t\t\t\te.printStackTrace();\n\t\t\t\t}\n\t\t\t}\n\t\t\t\n\t\t\t// Here we just use synchronized when the first object\n\t\t\t// is created\n\t\t\t\n\t\t\tsynchronized(Singleton.class){ \n\t\t\t\n\t\t\t\tif(firstInstance == null) {\n\t\t\t\t\t// If the instance isn't needed it isn't created\n\t\t\t\t\t// This is known as lazy instantiation\n\t\t\t\n\t\t\t\t\tfirstInstance = new Singleton();\n\t\t\t\n\t\t\t\t\t// Shuffle the letters in the list\n\t\t\t\t\tCollections.shuffle(firstInstance.letterList);\n\t\t\t\t\t\n\t\t\t\t}\n\t\t\t\n\t\t\t}\n\t\t\t\n\t\t}\n\t\t\n\t\t// Under either circumstance this returns the instance\n\t\t\n\t\treturn firstInstance;\n\t}\n\t\n\tpublic LinkedList<String> getLetterList(){\n\t\t\n\t\treturn firstInstance.letterList;\n\t\t\n\t}\n\t\n\tpublic LinkedList<String> getTiles(int howManyTiles){\n\t\t\n\t\t// Tiles to be returned to the user\n\t\t\n\t\tLinkedList<String> tilesToSend = new LinkedList<String>();\n\t\t\n\t\t// Cycle through the LinkedList while adding the starting\n\t\t// Strings to the to be returned LinkedList while deleting\n\t\t// them from letterList\n\t\t\n\t\tfor(int i = 0; i <= howManyTiles; i++){\n\t\t\n\t\t\ttilesToSend.add(firstInstance.letterList.remove(0));\n\t\t\n\t\t}\n\t\t\n\t\t// Return the number of letter tiles requested\n\t\t\n\t\treturn tilesToSend;\n\t\t\n\t}\n\t\n}"
-      ]
-    },
-    {
-      "tag": "simple",
-      "patterns": [
-        "¿Cómo se implementa un singleton tipo simple?",
-        "¿Tienes una implementación simple?",
-        "¿Me puedes mostrar un singleton con el estilo simple?",
-        "¿Cuál es el código de singleton versión simple?",
-        "¿Cómo hago una clase singleton usando el método simple?",
-        "Dame un ejemplo de singleton con enfoque simple",
-        "Quiero un singleton tipo simple, ¿puedes ayudarme?",
-        "¿Hay alguna forma de implementar singleton como simple?",
-        "¿Puedes escribirme una clase singleton tipo simple?",
-        "Explícame un singleton con patrón simple",
-        "¿En qué consiste una implementación simple del patrón singleton?",
-        "¿Tienes código simple de singleton?",
-        "¿Puedes darme una muestra del singleton simple?",
-        "¿Cómo luce una clase singleton con el estilo simple?",
-        "¿Puedes generar un ejemplo simple para el patrón singleton?"
-      ],
-      "responses": [
-        "Ejemplo de código (simple):\n\npublic class DatabaseConnection {\n    private static DatabaseConnection instance;\n    private Connection connection;\n\n    private DatabaseConnection() {\n        try {\n            connection = DriverManager.getConnection(\"jdbc:...\", \"user\", \"pass\");\n        } catch (SQLException e) {\n            throw new RuntimeException(e);\n        }\n    }\n\n    public static DatabaseConnection getInstance() {\n        if (instance == null) {\n            instance = new DatabaseConnection();\n        }\n        return instance;\n    }\n\n    public Connection getConnection() {\n        return connection;\n    }\n}"
+        "Ejemplo de código (classic):\n\npackage com.hundredwordsgof.singleton;\npublic class Singleton {\n  private static Singleton INSTANCE;\n  private Singleton() {\n  }\n  public static Singleton getInstance() {\n    if (INSTANCE == null) {\n      INSTANCE = new Singleton();\n    }\n    return INSTANCE;\n  }\n}",
+        "Ejemplo de código (classic):\n\npackage awesomecucumber.utils;\nimport static awesomecucumber.constants.FrameworkConstants.DIRECTORY_ENV_CONFIG;\nimport static awesomecucumber.constants.FrameworkConstants.ENV_CONFIG_INT;\nimport static awesomecucumber.constants.FrameworkConstants.ENV_CONFIG_PROD;\nimport static awesomecucumber.constants.FrameworkConstants.ENV_CONFIG_QA;\nimport static awesomecucumber.constants.FrameworkConstants.ENV_CONFIG_STG;\nimport static awesomecucumber.constants.FrameworkConstants.PARAMETER_ENV;\nimport java.util.Properties;\nimport awesomecucumber.enums.EnvType;\npublic class ConfigLoader {\n\tprivate static final String BASE_URL = \"baseUrl\";\n\tprivate static final String SEND_EMAIL_TO_USERS = \"send_email_to_users\";\n\tprivate Properties properties;\n\tprivate static ConfigLoader configLoader;\n\tprivate ConfigLoader() {\n\t\tString env = System.getProperty(PARAMETER_ENV, String.valueOf(EnvType.STG));\n\t\tswitch (EnvType.valueOf(env)) {\n\t\tcase QA: {\n\t\t\tproperties = PropertyUtils.propertyLoader(DIRECTORY_ENV_CONFIG + ENV_CONFIG_QA);\n\t\t\tbreak;\n\t\t}\n\t\tcase INT: {\n\t\t\tproperties = PropertyUtils.propertyLoader(DIRECTORY_ENV_CONFIG + ENV_CONFIG_INT);\n\t\t\tbreak;\n\t\t}\n\t\tcase STG: {\n\t\t\tproperties = PropertyUtils.propertyLoader(DIRECTORY_ENV_CONFIG + ENV_CONFIG_STG);\n\t\t\tbreak;\n\t\t}\n\t\tcase PROD: {\n\t\t\tproperties = PropertyUtils.propertyLoader(DIRECTORY_ENV_CONFIG + ENV_CONFIG_PROD);\n\t\t\tbreak;\n\t\t}\n\t\tdefault:\n\t\t\tthrow new IllegalStateException(\"INVALID ENV: \" + env);\n\t\t}\n\t}\n\tpublic static ConfigLoader getInstance() {\n\t\tif (configLoader == null) {\n\t\t\tconfigLoader = new ConfigLoader();\n\t\t}\n\t\treturn configLoader;\n\t}\n\tpublic String getBaseUrl() {\n\t\treturn getPropertyValue(BASE_URL);\n\t}\n\tpublic String getSendEmailToUsers() {\n\t\treturn getPropertyValue(SEND_EMAIL_TO_USERS);\n\t}\n\tprivate String getPropertyValue(String propertyKey) {\n\t\tString prop = properties.getProperty(propertyKey);\n\t\tif (prop != null) {\n\t\t\treturn prop.trim();\n\t\t} else {\n\t\t\tthrow new RuntimeException(\"Property \" + propertyKey + \" is not specified in the config.properties file\");\n\t\t}\n\t}\n}",
+        "Ejemplo de código (classic):\n\npublic class ClassicSingleton {\n        private static ClassicSingleton instance;\n        private ClassicSingleton() {}\n        public static ClassicSingleton getInstance() {\n            if (instance == null) {\n                instance = new ClassicSingleton();\n            }\n            return instance;\n        }\n    }"
       ]
     },
     {
@@ -68,7 +45,31 @@
         "¿Puedes generar un ejemplo double_checked para el patrón singleton?"
       ],
       "responses": [
-        "Ejemplo de código (double_checked):\n\npublic class DatabaseManager {\n    private static volatile DatabaseManager INSTANCE = null;\n\n    private DatabaseManager() {\n        if (INSTANCE != null) {\n            throw new RuntimeException(\"Use getInstance()\");\n        }\n    }\n\n    public static DatabaseManager getInstance() {\n        if (INSTANCE == null) {\n            synchronized (DatabaseManager.class) {\n                if (INSTANCE == null) {\n                    INSTANCE = new DatabaseManager();\n                }\n            }\n        }\n        return INSTANCE;\n    }\n}"
+        "Ejemplo de código (double_checked):\n\nimport java.util.Arrays;\nimport java.util.Collections;\nimport java.util.LinkedList;\npublic class Singleton {\n\tprivate static Singleton firstInstance = null;\n\tString[] scrabbleLetters = {\"a\", \"a\", \"a\", \"a\", \"a\", \"a\", \"a\", \"a\", \"a\",\n\t\t\t\"b\", \"b\", \"c\", \"c\", \"d\", \"d\", \"d\", \"d\", \"e\", \"e\", \"e\", \"e\", \"e\", \n\t\t\t\"e\", \"e\", \"e\", \"e\", \"e\", \"e\", \"e\", \"f\", \"f\", \"g\", \"g\", \"g\", \"h\", \n\t\t\t\"h\", \"i\", \"i\", \"i\", \"i\", \"i\", \"i\", \"i\", \"i\", \"i\", \"j\", \"k\", \"l\", \n\t\t\t\"l\", \"l\", \"l\", \"m\", \"m\", \"n\", \"n\", \"n\", \"n\", \"n\", \"n\", \"o\", \"o\", \n\t\t\t\"o\", \"o\", \"o\", \"o\", \"o\", \"o\", \"p\", \"p\", \"q\", \"r\", \"r\", \"r\", \"r\", \n\t\t\t\"r\", \"r\", \"s\", \"s\", \"s\", \"s\", \"t\", \"t\", \"t\", \"t\", \"t\", \"t\", \"u\", \n\t\t\t\"u\", \"u\", \"u\", \"v\", \"v\", \"w\", \"w\", \"x\", \"y\", \"y\", \"z\",};  \n\tprivate LinkedList<String> letterList = new LinkedList<String> (Arrays.asList(scrabbleLetters));\n\tstatic boolean firstThread = true;\n\tprivate Singleton() { }\n\tpublic static Singleton getInstance() {\n\t\tif(firstInstance == null) {\n\t\t\tif(firstThread){\n\t\t\t\tfirstThread = false;\n\t\t\t\ttry {\n\t\t\t\t\tThread.currentThread();\n\t\t\t\t\tThread.sleep(1000);\n\t\t\t\t} catch (InterruptedException e) {\n\t\t\t\t\te.printStackTrace();\n\t\t\t\t}\n\t\t\t}\n\t\t\tsynchronized(Singleton.class){ \n\t\t\t\tif(firstInstance == null) {\n\t\t\t\t\tfirstInstance = new Singleton();\n\t\t\t\t\tCollections.shuffle(firstInstance.letterList);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\treturn firstInstance;\n\t}\n\tpublic LinkedList<String> getLetterList(){\n\t\treturn firstInstance.letterList;\n\t}\n\tpublic LinkedList<String> getTiles(int howManyTiles){\n\t\tLinkedList<String> tilesToSend = new LinkedList<String>();\n\t\tfor(int i = 0; i <= howManyTiles; i++){\n\t\t\ttilesToSend.add(firstInstance.letterList.remove(0));\n\t\t}\n\t\treturn tilesToSend;\n\t}\n}",
+        "Ejemplo de código (double_checked):\n\npublic class DatabaseManager {\n    private static volatile DatabaseManager INSTANCE = null;\n    private DatabaseManager() {\n        if (INSTANCE != null) {\n            throw new RuntimeException(\"Use getInstance()\");\n        }\n    }\n    public static DatabaseManager getInstance() {\n        if (INSTANCE == null) {\n            synchronized (DatabaseManager.class) {\n                if (INSTANCE == null) {\n                    INSTANCE = new DatabaseManager();\n                }\n            }\n        }\n        return INSTANCE;\n    }\n}"
+      ]
+    },
+    {
+      "tag": "simple",
+      "patterns": [
+        "¿Cómo se implementa un singleton tipo simple?",
+        "¿Tienes una implementación simple?",
+        "¿Me puedes mostrar un singleton con el estilo simple?",
+        "¿Cuál es el código de singleton versión simple?",
+        "¿Cómo hago una clase singleton usando el método simple?",
+        "Dame un ejemplo de singleton con enfoque simple",
+        "Quiero un singleton tipo simple, ¿puedes ayudarme?",
+        "¿Hay alguna forma de implementar singleton como simple?",
+        "¿Puedes escribirme una clase singleton tipo simple?",
+        "Explícame un singleton con patrón simple",
+        "¿En qué consiste una implementación simple del patrón singleton?",
+        "¿Tienes código simple de singleton?",
+        "¿Puedes darme una muestra del singleton simple?",
+        "¿Cómo luce una clase singleton con el estilo simple?",
+        "¿Puedes generar un ejemplo simple para el patrón singleton?"
+      ],
+      "responses": [
+        "Ejemplo de código (simple):\n\npublic class DatabaseConnection {\n    private static DatabaseConnection instance;\n    private Connection connection;\n    private DatabaseConnection() {\n        try {\n            connection = DriverManager.getConnection(\"jdbc:...\", \"user\", \"pass\");\n        } catch (SQLException e) {\n            throw new RuntimeException(e);\n        }\n    }\n    public static DatabaseConnection getInstance() {\n        if (instance == null) {\n            instance = new DatabaseConnection();\n        }\n        return instance;\n    }\n    public Connection getConnection() {\n        return connection;\n    }\n}"
       ]
     },
     {
@@ -91,7 +92,7 @@
         "¿Puedes generar un ejemplo bill_pugh para el patrón singleton?"
       ],
       "responses": [
-        "Ejemplo de código (bill_pugh):\n\npublic class BillPughSingleton {\n    private BillPughSingleton() {}\n\n    private static class Holder {\n        private static final BillPughSingleton INSTANCE = new BillPughSingleton();\n    }\n\n    public static BillPughSingleton getInstance() {\n        return Holder.INSTANCE;\n    }\n}"
+        "Ejemplo de código (bill_pugh):\n\npublic class BillPughSingleton {\n    private BillPughSingleton() {}\n    private static class Holder {\n        private static final BillPughSingleton INSTANCE = new BillPughSingleton();\n    }\n    public static BillPughSingleton getInstance() {\n        return Holder.INSTANCE;\n    }\n}"
       ]
     },
     {
@@ -114,7 +115,214 @@
         "¿Puedes generar un ejemplo enum para el patrón singleton?"
       ],
       "responses": [
-        "Ejemplo de código (enum):\n\npublic enum SingletonEnum {\n    INSTANCE;\n\n    private Connection connection;\n\n    private SingletonEnum() {\n        connection = ...; // initialize database connection\n    }\n\n    public Connection getConnection() {\n        return connection;\n    }\n}"
+        "Ejemplo de código (enum):\n\npublic enum SingletonEnum {\n    INSTANCE;\n    private Connection connection;\n    private SingletonEnum() {\n        connection = ...; \n    }\n    public Connection getConnection() {\n        return connection;\n    }\n}"
+      ]
+    },
+    {
+      "tag": "eager",
+      "patterns": [
+        "¿Cómo se implementa un singleton tipo eager?",
+        "¿Tienes una implementación eager?",
+        "¿Me puedes mostrar un singleton con el estilo eager?",
+        "¿Cuál es el código de singleton versión eager?",
+        "¿Cómo hago una clase singleton usando el método eager?",
+        "Dame un ejemplo de singleton con enfoque eager",
+        "Quiero un singleton tipo eager, ¿puedes ayudarme?",
+        "¿Hay alguna forma de implementar singleton como eager?",
+        "¿Puedes escribirme una clase singleton tipo eager?",
+        "Explícame un singleton con patrón eager",
+        "¿En qué consiste una implementación eager del patrón singleton?",
+        "¿Tienes código eager de singleton?",
+        "¿Puedes darme una muestra del singleton eager?",
+        "¿Cómo luce una clase singleton con el estilo eager?",
+        "¿Puedes generar un ejemplo eager para el patrón singleton?"
+      ],
+      "responses": [
+        "Ejemplo de código (eager):\n\npublic class EagerSingleton {\n        private static final EagerSingleton instance = new EagerSingleton();\n        private EagerSingleton() {}\n        public static EagerSingleton getInstance() {\n            return instance;\n        }\n    }"
+      ]
+    },
+    {
+      "tag": "inner_static_class",
+      "patterns": [
+        "¿Cómo se implementa un singleton tipo inner_static_class?",
+        "¿Tienes una implementación inner_static_class?",
+        "¿Me puedes mostrar un singleton con el estilo inner_static_class?",
+        "¿Cuál es el código de singleton versión inner_static_class?",
+        "¿Cómo hago una clase singleton usando el método inner_static_class?",
+        "Dame un ejemplo de singleton con enfoque inner_static_class",
+        "Quiero un singleton tipo inner_static_class, ¿puedes ayudarme?",
+        "¿Hay alguna forma de implementar singleton como inner_static_class?",
+        "¿Puedes escribirme una clase singleton tipo inner_static_class?",
+        "Explícame un singleton con patrón inner_static_class",
+        "¿En qué consiste una implementación inner_static_class del patrón singleton?",
+        "¿Tienes código inner_static_class de singleton?",
+        "¿Puedes darme una muestra del singleton inner_static_class?",
+        "¿Cómo luce una clase singleton con el estilo inner_static_class?",
+        "¿Puedes generar un ejemplo inner_static_class para el patrón singleton?"
+      ],
+      "responses": [
+        "Ejemplo de código (inner_static_class):\n\npublic class InnerStaticSingleton {\n        private InnerStaticSingleton() {}\n        private static class Holder {\n            private static final InnerStaticSingleton INSTANCE = new InnerStaticSingleton();\n        }\n        public static InnerStaticSingleton getInstance() {\n            return Holder.INSTANCE;\n        }\n    }"
+      ]
+    },
+    {
+      "tag": "lazy",
+      "patterns": [
+        "¿Cómo se implementa un singleton tipo lazy?",
+        "¿Tienes una implementación lazy?",
+        "¿Me puedes mostrar un singleton con el estilo lazy?",
+        "¿Cuál es el código de singleton versión lazy?",
+        "¿Cómo hago una clase singleton usando el método lazy?",
+        "Dame un ejemplo de singleton con enfoque lazy",
+        "Quiero un singleton tipo lazy, ¿puedes ayudarme?",
+        "¿Hay alguna forma de implementar singleton como lazy?",
+        "¿Puedes escribirme una clase singleton tipo lazy?",
+        "Explícame un singleton con patrón lazy",
+        "¿En qué consiste una implementación lazy del patrón singleton?",
+        "¿Tienes código lazy de singleton?",
+        "¿Puedes darme una muestra del singleton lazy?",
+        "¿Cómo luce una clase singleton con el estilo lazy?",
+        "¿Puedes generar un ejemplo lazy para el patrón singleton?"
+      ],
+      "responses": [
+        "Ejemplo de código (lazy):\n\npublic class LazySingleton {\n        private static LazySingleton instance;\n        private LazySingleton() {}\n        public static LazySingleton getInstance() {\n            if (instance == null) {\n                instance = new LazySingleton();\n            }\n            return instance;\n        }\n    }"
+      ]
+    },
+    {
+      "tag": "reflection_safe",
+      "patterns": [
+        "¿Cómo se implementa un singleton tipo reflection_safe?",
+        "¿Tienes una implementación reflection_safe?",
+        "¿Me puedes mostrar un singleton con el estilo reflection_safe?",
+        "¿Cuál es el código de singleton versión reflection_safe?",
+        "¿Cómo hago una clase singleton usando el método reflection_safe?",
+        "Dame un ejemplo de singleton con enfoque reflection_safe",
+        "Quiero un singleton tipo reflection_safe, ¿puedes ayudarme?",
+        "¿Hay alguna forma de implementar singleton como reflection_safe?",
+        "¿Puedes escribirme una clase singleton tipo reflection_safe?",
+        "Explícame un singleton con patrón reflection_safe",
+        "¿En qué consiste una implementación reflection_safe del patrón singleton?",
+        "¿Tienes código reflection_safe de singleton?",
+        "¿Puedes darme una muestra del singleton reflection_safe?",
+        "¿Cómo luce una clase singleton con el estilo reflection_safe?",
+        "¿Puedes generar un ejemplo reflection_safe para el patrón singleton?"
+      ],
+      "responses": [
+        "Ejemplo de código (reflection_safe):\n\npublic class ReflectionSafeSingleton {\n        private static ReflectionSafeSingleton instance;\n        private ReflectionSafeSingleton() {\n            if (instance != null) {\n                throw new RuntimeException(\"Use getInstance() method\");\n            }\n        }\n        public static ReflectionSafeSingleton getInstance() {\n            if (instance == null) {\n                instance = new ReflectionSafeSingleton();\n            }\n            return instance;\n        }\n    }"
+      ]
+    },
+    {
+      "tag": "registry",
+      "patterns": [
+        "¿Cómo se implementa un singleton tipo registry?",
+        "¿Tienes una implementación registry?",
+        "¿Me puedes mostrar un singleton con el estilo registry?",
+        "¿Cuál es el código de singleton versión registry?",
+        "¿Cómo hago una clase singleton usando el método registry?",
+        "Dame un ejemplo de singleton con enfoque registry",
+        "Quiero un singleton tipo registry, ¿puedes ayudarme?",
+        "¿Hay alguna forma de implementar singleton como registry?",
+        "¿Puedes escribirme una clase singleton tipo registry?",
+        "Explícame un singleton con patrón registry",
+        "¿En qué consiste una implementación registry del patrón singleton?",
+        "¿Tienes código registry de singleton?",
+        "¿Puedes darme una muestra del singleton registry?",
+        "¿Cómo luce una clase singleton con el estilo registry?",
+        "¿Puedes generar un ejemplo registry para el patrón singleton?"
+      ],
+      "responses": [
+        "Ejemplo de código (registry):\n\nimport java.util.HashMap;\n    import java.util.Map;\n    public class SingletonRegistry {\n        private static Map<String, Object> registry = new HashMap<>();\n        public static Object getInstance(String className) {\n            return registry.get(className);\n        }\n        public static void register(String className, Object instance) {\n            registry.put(className, instance);\n        }\n    }"
+      ]
+    },
+    {
+      "tag": "static_block",
+      "patterns": [
+        "¿Cómo se implementa un singleton tipo static_block?",
+        "¿Tienes una implementación static_block?",
+        "¿Me puedes mostrar un singleton con el estilo static_block?",
+        "¿Cuál es el código de singleton versión static_block?",
+        "¿Cómo hago una clase singleton usando el método static_block?",
+        "Dame un ejemplo de singleton con enfoque static_block",
+        "Quiero un singleton tipo static_block, ¿puedes ayudarme?",
+        "¿Hay alguna forma de implementar singleton como static_block?",
+        "¿Puedes escribirme una clase singleton tipo static_block?",
+        "Explícame un singleton con patrón static_block",
+        "¿En qué consiste una implementación static_block del patrón singleton?",
+        "¿Tienes código static_block de singleton?",
+        "¿Puedes darme una muestra del singleton static_block?",
+        "¿Cómo luce una clase singleton con el estilo static_block?",
+        "¿Puedes generar un ejemplo static_block para el patrón singleton?"
+      ],
+      "responses": [
+        "Ejemplo de código (static_block):\n\npublic class StaticBlockSingleton {\n        private static StaticBlockSingleton instance;\n        static {\n            try {\n                instance = new StaticBlockSingleton();\n            } catch (Exception e) {\n                throw new RuntimeException(\"Exception during instance creation\");\n            }\n        }\n        private StaticBlockSingleton() {}\n        public static StaticBlockSingleton getInstance() {\n            return instance;\n        }\n    }"
+      ]
+    },
+    {
+      "tag": "synchronized",
+      "patterns": [
+        "¿Cómo se implementa un singleton tipo synchronized?",
+        "¿Tienes una implementación synchronized?",
+        "¿Me puedes mostrar un singleton con el estilo synchronized?",
+        "¿Cuál es el código de singleton versión synchronized?",
+        "¿Cómo hago una clase singleton usando el método synchronized?",
+        "Dame un ejemplo de singleton con enfoque synchronized",
+        "Quiero un singleton tipo synchronized, ¿puedes ayudarme?",
+        "¿Hay alguna forma de implementar singleton como synchronized?",
+        "¿Puedes escribirme una clase singleton tipo synchronized?",
+        "Explícame un singleton con patrón synchronized",
+        "¿En qué consiste una implementación synchronized del patrón singleton?",
+        "¿Tienes código synchronized de singleton?",
+        "¿Puedes darme una muestra del singleton synchronized?",
+        "¿Cómo luce una clase singleton con el estilo synchronized?",
+        "¿Puedes generar un ejemplo synchronized para el patrón singleton?"
+      ],
+      "responses": [
+        "Ejemplo de código (synchronized):\n\npublic class SynchronizedSingleton {\n        private static SynchronizedSingleton instance;\n        private SynchronizedSingleton() {}\n        public static synchronized SynchronizedSingleton getInstance() {\n            if (instance == null) {\n                instance = new SynchronizedSingleton();\n            }\n            return instance;\n        }\n    }"
+      ]
+    },
+    {
+      "tag": "thread_safe",
+      "patterns": [
+        "¿Cómo se implementa un singleton tipo thread_safe?",
+        "¿Tienes una implementación thread_safe?",
+        "¿Me puedes mostrar un singleton con el estilo thread_safe?",
+        "¿Cuál es el código de singleton versión thread_safe?",
+        "¿Cómo hago una clase singleton usando el método thread_safe?",
+        "Dame un ejemplo de singleton con enfoque thread_safe",
+        "Quiero un singleton tipo thread_safe, ¿puedes ayudarme?",
+        "¿Hay alguna forma de implementar singleton como thread_safe?",
+        "¿Puedes escribirme una clase singleton tipo thread_safe?",
+        "Explícame un singleton con patrón thread_safe",
+        "¿En qué consiste una implementación thread_safe del patrón singleton?",
+        "¿Tienes código thread_safe de singleton?",
+        "¿Puedes darme una muestra del singleton thread_safe?",
+        "¿Cómo luce una clase singleton con el estilo thread_safe?",
+        "¿Puedes generar un ejemplo thread_safe para el patrón singleton?"
+      ],
+      "responses": [
+        "Ejemplo de código (thread_safe):\n\npublic class ThreadSafeSingleton {\n        private static ThreadSafeSingleton instance = new ThreadSafeSingleton();\n        private ThreadSafeSingleton() {}\n        public static ThreadSafeSingleton getInstance() {\n            return instance;\n        }\n    }"
+      ]
+    },
+    {
+      "tag": "volatile",
+      "patterns": [
+        "¿Cómo se implementa un singleton tipo volatile?",
+        "¿Tienes una implementación volatile?",
+        "¿Me puedes mostrar un singleton con el estilo volatile?",
+        "¿Cuál es el código de singleton versión volatile?",
+        "¿Cómo hago una clase singleton usando el método volatile?",
+        "Dame un ejemplo de singleton con enfoque volatile",
+        "Quiero un singleton tipo volatile, ¿puedes ayudarme?",
+        "¿Hay alguna forma de implementar singleton como volatile?",
+        "¿Puedes escribirme una clase singleton tipo volatile?",
+        "Explícame un singleton con patrón volatile",
+        "¿En qué consiste una implementación volatile del patrón singleton?",
+        "¿Tienes código volatile de singleton?",
+        "¿Puedes darme una muestra del singleton volatile?",
+        "¿Cómo luce una clase singleton con el estilo volatile?",
+        "¿Puedes generar un ejemplo volatile para el patrón singleton?"
+      ],
+      "responses": [
+        "Ejemplo de código (volatile):\n\npublic class VolatileSingleton {\n        private static volatile VolatileSingleton instance;\n        private VolatileSingleton() {}\n        public static VolatileSingleton getInstance() {\n            if (instance == null) {\n                synchronized (VolatileSingleton.class) {\n                    if (instance == null) {\n                        instance = new VolatileSingleton();\n                    }\n                }\n            }\n            return instance;\n        }\n    }"
       ]
     }
   ]
