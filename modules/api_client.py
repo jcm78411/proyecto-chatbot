@@ -10,7 +10,6 @@ if not API_KEY:
     raise RuntimeError("API_KEY no encontrada en .env")
 
 # === CONFIGURACIÓN DE OPENROUTER ===
-
 API_URL = "https://openrouter.ai/api/v1/chat/completions"
 
 HEADERS = {
