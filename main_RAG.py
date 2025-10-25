@@ -11,6 +11,9 @@ from nltk.stem.lancaster import LancasterStemmer
 from sentence_transformers import SentenceTransformer
 import faiss
 from transformers import T5Tokenizer, T5ForConditionalGeneration
+import requests
+import json
+from dotenv import load_dotenv
 
 ########################################
 ########################################
@@ -67,7 +70,6 @@ def stop_speaking():
     except Exception:
         pass
 
-# Cargar T5 (puedes usar otras variantes más grandes si tu RAM lo permite)
 tokenizer = T5Tokenizer.from_pretrained("t5-small")
 model_t5 = T5ForConditionalGeneration.from_pretrained("t5-small")
 
@@ -375,8 +377,12 @@ else:
     print("=" * 40)
     print("=" * 40)
 
-# API Key de OpenRouter
-API_KEY = "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"
+
+load_dotenv()
+
+API_KEY = os.getenv("API_KEY")
+if not API_KEY:
+    raise RuntimeError("API_KEY no encontrada en .env")
 
 API_URL = "https://openrouter.ai/api/v1/chat/completions"
 HEADERS = {
@@ -386,16 +392,13 @@ HEADERS = {
     "X-Title": "Chat Flet Llama3",
 }
 
-import requests
-import json
-
 def obtener_respuesta(texto):
     try:
         # Construcción del cuerpo del mensaje
         data = {
             "model": "meta-llama/llama-3.3-70b-instruct:free",
             "messages": [
-                {"role": "system", "content": "Eres un asistente útil que responde con claridad."},
+                {"role": "system", "content": "Eres un asistente útil, experto en ingenieria de sistemas, que responde con claridad exclusivamente sobre patrones de diseño singleton en java"},
                 {"role": "user", "content": texto}
             ],
             "max_tokens": 512,
@@ -406,7 +409,7 @@ def obtener_respuesta(texto):
         response = requests.post(
             url="https://openrouter.ai/api/v1/chat/completions",
             headers={
-                "Authorization": f"Bearer {API_KEY}",  # Reemplaza con tu clave real
+                "Authorization": f"Bearer {API_KEY}",
                 "Content-Type": "application/json",
                 "HTTP-Referer": "<YOUR_SITE_URL>",  # (Opcional)
                 "X-Title": "<YOUR_SITE_NAME>",       # (Opcional)
@@ -476,7 +479,6 @@ def chat_rag(pregunta_usuario):
         "",
     )
 
-    # Generar contexto según tipo de pregunta
     if tipo_pregunta == "teoria":
         contexto = teoria
     elif tipo_pregunta == "codigo":
@@ -493,7 +495,7 @@ def chat_rag(pregunta_usuario):
             + "\n- ".join(tipos_disponibles)
         )
 
-    else:  # mixta o desconocida
+    else:
         contexto = f"{teoria}\n\nEjemplo:\n{ejemplo_codigo}"
 
     return generar_respuesta_api(pregunta, contexto)
@@ -559,8 +561,8 @@ def main(page: ft.Page):
         espera_label.update()
         spinner.update()
 
-        respuesta = chat_rag(text)  # Reemplaza con tu lógica de respuesta
-        speak_async(respuesta)  # Reproducir la respuesta en voz alta
+        respuesta = chat_rag(text)
+        speak_async(respuesta)
 
         espera_label.visible = False
         spinner.visible = False
@@ -573,8 +575,8 @@ def main(page: ft.Page):
                         ft.Text(
                             f"🤖 IA:\n{respuesta}",
                             size=14,
-                            font_family="Courier New",  # Fuente monoespaciada
-                            no_wrap=False,  # Permite saltos de línea
+                            font_family="Courier New",
+                            no_wrap=False,
                             expand=True,
                         ),
                         padding=10,
