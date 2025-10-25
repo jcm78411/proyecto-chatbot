@@ -12,6 +12,61 @@ from sentence_transformers import SentenceTransformer
 import faiss
 from transformers import T5Tokenizer, T5ForConditionalGeneration
 
+########################################
+########################################
+"""VOZ CON TTSX3"""
+########################################
+########################################
+
+import pyttsx3
+import threading
+
+# Inicializar engine de pyttsx3 (una sola instancia global)
+engine = pyttsx3.init()
+
+# Configuración básica
+try:
+    engine.setProperty("rate", 150)      # velocidad de voz
+    engine.setProperty("volume", 1.0)    # volumen (0.0 a 1.0)
+except Exception:
+    pass
+
+# Intentar seleccionar una voz en español si está disponible
+try:
+    voices = engine.getProperty("voices")
+    chosen = None
+    for v in voices:
+        name = (v.name or "").lower()
+        vid = (v.id or "").lower()
+        # buscar pistas de "spanish" o "es"
+        if "spanish" in name or "spanish" in vid or "es_" in vid or "es-" in vid or "es" == vid:
+            chosen = v
+            break
+    if chosen:
+        engine.setProperty("voice", chosen.id)
+except Exception:
+    pass
+
+# Función interna que habla (bloqueante)
+def _speak(text: str):
+    try:
+        engine.say(str(text))
+        engine.runAndWait()
+    except Exception:
+        # proteger contra errores de TTS en tiempo de ejecución
+        pass
+
+# Lanza la voz en un hilo para no bloquear la UI
+def speak_async(text: str):
+    threading.Thread(target=_speak, args=(text,), daemon=True).start()
+
+# Permite detener la reproducción si es necesario
+def stop_speaking():
+    try:
+        engine.stop()
+    except Exception:
+        pass
+
 # Cargar T5 (puedes usar otras variantes más grandes si tu RAM lo permite)
 tokenizer = T5Tokenizer.from_pretrained("t5-small")
 model_t5 = T5ForConditionalGeneration.from_pretrained("t5-small")
@@ -396,6 +451,7 @@ def clasificar_pregunta(pregunta):
         return "tipos"
     else:
         return "mixta"
+
 
 def chat_rag(pregunta_usuario):
     tipo_pregunta = clasificar_pregunta(pregunta_usuario)
