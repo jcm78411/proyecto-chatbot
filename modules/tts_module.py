@@ -35,12 +35,10 @@ def stop_speaking():
     stop_flag.set()
     try:
         engine.stop()
-        # Limpia la cola (para no leer mensajes futuros)
         while not tts_queue.empty():
             tts_queue.get_nowait()
             tts_queue.task_done()
     except Exception:
         pass
     finally:
-        # Restablecer flag para poder volver a hablar luego
         stop_flag.clear()
