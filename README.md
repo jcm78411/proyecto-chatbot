@@ -1,6 +1,6 @@
 # 🤖 Singleton Pattern Chatbot
 
-Este proyecto implementa un **asistente inteligente** que responde preguntas sobre el patrón de diseño Singleton en diversos estilos de implementación, usando aprendizaje automático, embeddings semánticos y un buscador semántico con FAISS.
+Este proyecto implementa un prototipo de **asistente inteligente** que responde preguntas sobre el patrón de diseño Singleton en diversos estilos de implementación, usando aprendizaje automático, embeddings semánticos y un buscador semántico con FAISS.
 
 ---
 
