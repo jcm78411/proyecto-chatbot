@@ -16,27 +16,50 @@ Este proyecto implementa un **asistente inteligente** que responde preguntas sob
 
 ## 📂 Estructura del proyecto
 
-- data_bot/
-- ├── data_bot-main/
-- │ ├── singleton_dataset_enriched.json # Dataset enriquecido original
-- │ ├── singleton_dataset_cleaned.json # Dataset con estructura normalizada y comentarios eliminados
-- │ ├── singleton_dataset_extended.json # Dataset con ejemplos adicionales generados
+- proyecto_chatbot/
+- ├── .venv (crear e instalar las deps)
+- ├── data_bot\data_bot-main
+- │ ├── data.json # Dataset tipo tag-pattern-example 
+- | ├── singleton_dataset_cleaned.json # Dataset hecho por web_scrapping (unused)
+- | ├── singleton_dataset_enriched.json # Dataset hecho por web_scrapping (unused)
 - │ ├── theory_dataset.json # Teoría explicativa por tipo de singleton
-- EntrenamientoPickle/
-- ├── brain_model.h5 # Modelo de clasificación entrenado
-- ├── brain.words.pickle # Palabras, etiquetas y vectores de entrenamiento
-- main.py # Código principal del bot
+- ├── EntrenamientoPickle/
+- | ├── brain_model.h5 # Modelo de clasificación entrenado
+- | ├── brain.words.pickle # Palabras, etiquetas y vectores de entrenamiento
+- | ├── logs/
+- ├── modules/
+- │ ├── __init__.py # Inicializador
+- │ ├── api_client.py # Módulo gestor de conexion a la nube
+- │ ├── chat_logic.py # Módulo de gestion de logica de respuesta
+- │ ├── data_loader.py # Módulo de carga y procesamiento de info local
+- │ ├── model_training.py # Módulo de entrenamiento del modelo clasificador
+- │ ├── theory_generator.py # Módulo generador de teoria y embeddings/faiss
+- │ ├── tts_module.py # Módulo administrador de voz local
+- ├── storage/
+-   ├──data/
+-   │ ├──  datasets.json generados como base
+- ├── temp/
+- .env # Archivo de variables de entorno
+- backup.py # Archivo respaldo original (monolítico)
+- main_RAG.py # Archivo original (monolítico)
+- main.py # Código de la GUI y llamada a los modulos
+- requirements.txt # Coleccion de librerias del proyecto
+- singleton_collector.py # Archivo de web_scraping
 
 ---
 
 ## 🛠️ Tecnologías usadas
 
-- **Python 3.10+**
+- **Python 3.11+**
 - **NLTK** para tokenización y stemming.
 - **Keras / TensorFlow** para entrenamiento del modelo.
 - **SentenceTransformers** (`all-MiniLM-L6-v2`) para embeddings semánticos.
 - **FAISS** para recuperación de teoría relacionada.
 - **Flet** para futuras integraciones gráficas o interfaces de usuario.
+- **OpenRouter** para el uso de IA preentrenada para Generacion de texto
+- **pyttsx3** para el uso de lectura automática
+- **dotenv** para la integracion de claves secretas
+- **threading** para la gestion de hilos y colas
 
 ---
 
@@ -59,7 +82,7 @@ code . #Si tienes Visual Studio Code
 2. Crea el entorno virtual
 
 ```bash
-python3.12.exe -m venv .venv
+py.exe -m venv .venv #python 3.11 o superior
 ```
 
 3. Instala los paquetes
